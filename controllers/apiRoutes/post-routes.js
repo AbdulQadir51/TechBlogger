@@ -2,12 +2,28 @@ const router = require("express").Router();
 
 const { Post, User } = require("../../models");
 
-// get all workouts, similar to SELECT * FROM post;
+// get all posts, similar to SELECT * FROM post;
 
 router.get("/", (req, res) => {
     Post.findAll({
+            attributes: ['id', 'title', 'content', 'date_created'],
             order: [
                 ["date_created", "ASC"]
+            ],
+            include: [
+                // include the Comment model here:
+                {
+                    model: Comment,
+                    attributes: ['id', 'comment_text', 'post_id', 'user_id', 'date_created'],
+                    include: {
+                        model: User,
+                        attributes: ['username']
+                    }
+                },
+                {
+                    model: User,
+                    attributes: ['username']
+                }
             ]
         })
         .then((postData) => res.json(postData))
@@ -19,12 +35,18 @@ router.get("/", (req, res) => {
         });
 });
 
-// GET WORKOUT BY ID, similar to SELECT * FROM workouts, where id = ?
+// GET POST BY ID, similar to SELECT * FROM posts, where id = ?
 router.get("/:id", (req, res) => {
-    User.findOne({
+    Post.findOne({
             where: {
                 id: req.params.id,
             },
+            attributes: ['id', 'title', 'content', 'date_created'],
+            include: [{
+                model: User,
+                attributes: ['username']
+            }]
+
         })
         .then((postData) => {
             if (!postData) {
@@ -45,11 +67,17 @@ router.get("/:id", (req, res) => {
 
 router.post("/", (req, res) => {
     // expect title, date_created, content, user_id
+    var user_id = null;
+    if (req.session.user_id != null) {
+        user_id = req.session.user_id;
+    } else {
+        user_id = req.body.user_id;
+    }
     Post.create({
             title: req.body.title,
             date_created: req.body.date_created,
             content: req.body.content,
-            user_id: req.session.user_id,
+            user_id: user_id,
         })
         .then((postData) => {
             res.json(postData);
