@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const { Post, User } = require("../../models");
+const { Post, User, Comment } = require("../../models");
 
 // get all posts, similar to SELECT * FROM post;
 

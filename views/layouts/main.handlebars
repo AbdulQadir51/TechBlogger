@@ -1,0 +1,53 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Tech Blogger</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.1.3/flatly/bootstrap.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Oswald&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-avatar@latest/dist/avatar.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+    integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
+
+<body class="bg-white">
+  <div class="container-fluid p-0 nav-bar">
+    <nav class="navbar navbar-expand-lg bg-none navbar-dark py-3">
+      <a href="" class="navbar-brand">
+        <h2 class="m-0 display-5 font-weight-bold text-uppercase text-white">Tech Blogger</h2>
+      </a>
+      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+        <div class="navbar-nav ml-auto p-4">
+           <a href="/" class="nav-item nav-link">Blogs</a>
+          {{#if loggedIn}}
+          <a href="/homepage" class="nav-item nav-link">Home</a>
+         
+          <a href="/bmi" class="nav-item nav-link">Add Blog</a>
+          <a href="" class="nav-item nav-link" id="logout">Logout</a>
+          {{else}}
+          <a href="/login" class="nav-item nav-link">Login</a>
+          {{/if}}
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div class="container-fluid page-header mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center pt-0" style="min-height: 100px">
+    </div>
+  </div>
+
+  <main>
+    {{{body}}}
+  </main>
+ 
+  {{#if loggedIn}}
+  <script src="/javascript/logout.js"></script>
+  {{/if}}
+</body>
+
+</html>
