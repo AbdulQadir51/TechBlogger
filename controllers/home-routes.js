@@ -2,11 +2,8 @@ const router = require("express").Router();
 const { Post, Comment, User } = require("../models");
 
 // homepage handlebar route
-router.get("/homepage", (req, res) => {
+router.get("/", (req, res) => {
     Post.findAll({
-            // where: {
-            //     user_id: req.session.user_id,
-            // },
             include: [{
                 model: Comment,
                 attributes: ['id', 'comment_text', 'post_id', 'user_id', 'date_created'],
@@ -39,10 +36,6 @@ router.get("/homepage", (req, res) => {
 
 });
 
-// main start handlebar route
-router.get("/", (req, res) => {
-    res.render("homepage", { loggedIn: req.session.loggedIn });
-});
 
 // route for Posts detail Page
 router.get("/post/:id", (req, res) => {
@@ -89,6 +82,10 @@ router.get("/post/:id", (req, res) => {
 
 });
 
+// create post handlebar route
+router.get("/createpost", (req, res) => {
+    res.render("create-post");
+});
 
 // register handlebar route
 router.get("/register", (req, res) => {

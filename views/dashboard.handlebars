@@ -1,0 +1,43 @@
+{{#if posts.length}}
+<div class="container mb-5 mt-5">
+  <div class="d-flex flex-column text-center ">
+    <h4 >My Blogs</h4>
+  </div>
+</div>
+<div class="tab-content mb-5">
+  <div id="class-all" class="container tab-pane p-0 active">
+ <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-12 col-lg-12 col-xl-12">
+                  {{#each posts }}
+                    <!-- Post preview-->
+                    <div class="post-preview">
+                        <a href="/dashboard/edit/{{id}}">
+                            <h2 class="post-title">{{title}}</h2>
+                        </a>
+                        <p class="post-meta">
+                            Posted by
+                            <a href="#!">{{user.username}}</a>
+                            on {{format_date date_created}} | {{comments.length}} comment(s)
+                        </p>
+                    </div>
+                    <!-- Divider-->
+                    <hr class="my-4">
+                    {{/each}}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+{{/if}}
+<div class="container mt-5">
+  <a href="/createpost" class="btn btn-lg btn-block btn-primary"> <i class="fas fa-plus"></i> Create Blog</a>
+</div>
+
+{{! jquery }}
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+></script>
+

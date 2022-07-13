@@ -1,0 +1,64 @@
+<header class="masthead" style="background-image: url('/images/blog_bg.jpg')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="post-heading">
+                            <h1>{{post.title}}</h1>
+                            <span class="meta">
+                                Posted by
+                                <a href="#!">{{post.user.username}}</a>
+                                on {{format_date post.date_created}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <article class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <p class="content">{{post.content}}</p>
+                    </div>
+                </div>
+            </div>
+            
+        <div class="container px-4 px-lg-5">
+        {{#if loggedIn}}
+            <div class="card mt-5 mb-5">
+                <h5 class="card-header" >Your comments</h5>
+                <form class="card-body comment-form">
+                    <div class="mb-3">
+    <label for="comment" class="form-label">Comment</label>
+                       <textarea name="comment-text" class="form-control" autofocus="true"></textarea>
+  </div>
+                    <button class="btn btn-primary" type="submit" class="btn">Submit</button>
+                </form>
+            </div>
+        {{/if}}
+        {{#if post.comments.length}}
+            <div class="post-reviews">
+                <div class="section-heading heading-dark">
+                    <h2 class="item-heading">Comments</h2>
+                </div>
+                <ul>
+                    {{#each post.comments as |comment|}}
+                    <li class="reviews-single-item">
+                        <div class="media media-none--xs">
+                            <img src="/images/profile-icon.png" width="50px" alt="Comment" class="media-img-auto">
+                            <div class="media-body">
+                                <h4 class="comment-title">{{comment.user.username}}</h4>
+                                <span class="post-date">{{format_date comment.date_created}}</span>
+                                <p>{{comment.comment_text}}</p>
+                            </div>
+                        </div>
+                    </li>
+                    {{/each}}
+                </ul>
+             </div>
+             {{/if}}
+             </div>
+            
+        </article>
+<script src="/javascript/add-comment.js"></script>

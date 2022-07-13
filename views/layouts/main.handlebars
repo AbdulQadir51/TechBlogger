@@ -15,7 +15,7 @@
 <body class="bg-white">
   <div class="container-fluid p-0 nav-bar">
     <nav class="navbar navbar-expand-lg bg-none navbar-dark py-3">
-      <a href="" class="navbar-brand">
+      <a href="/" class="navbar-brand">
         <h2 class="m-0 display-5 font-weight-bold text-uppercase text-white">Tech Blogger</h2>
       </a>
       <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -23,11 +23,9 @@
       </button>
       <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
         <div class="navbar-nav ml-auto p-4">
-           <a href="/" class="nav-item nav-link">Blogs</a>
-          {{#if loggedIn}}
-          <a href="/homepage" class="nav-item nav-link">Home</a>
-         
-          <a href="/bmi" class="nav-item nav-link">Add Blog</a>
+          <a href="/" class="nav-item nav-link">Home</a>
+          <a href="/dashboard" class="nav-item nav-link">Dashboard</a>
+           {{#if loggedIn}}
           <a href="" class="nav-item nav-link" id="logout">Logout</a>
           {{else}}
           <a href="/login" class="nav-item nav-link">Login</a>
@@ -36,7 +34,7 @@
       </div>
     </nav>
   </div>
-  <div class="container-fluid page-header mb-5">
+  <div class="container-fluid page-header">
     <div class="d-flex flex-column align-items-center justify-content-center pt-0" style="min-height: 100px">
     </div>
   </div>
@@ -48,6 +46,9 @@
   {{#if loggedIn}}
   <script src="/javascript/logout.js"></script>
   {{/if}}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.34/moment-timezone.min.js"></script>
 </body>
 
 </html>
