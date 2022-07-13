@@ -1,24 +1,34 @@
 const router = require("express").Router();
-const { Post, User } = require("../models");
+const { Post, Comment, User } = require("../models");
 
 // homepage handlebar route
 router.get("/homepage", (req, res) => {
     Post.findAll({
-            where: {
-                user_id: req.session.user_id,
-            },
+            // where: {
+            //     user_id: req.session.user_id,
+            // },
+            include: [{
+                model: Comment,
+                attributes: ['id', 'comment_text', 'post_id', 'user_id', 'date_created'],
+                include: {
+                    model: User,
+                    attributes: ['username']
+                }
+            }, {
+                model: User,
+                attributes: ['username']
+            }],
             order: [
                 ["date_created", "DESC"]
             ],
-            limit: 2,
+            limit: 5,
         })
         .then((postData) => {
-            const posts = postData.map((post) =>
-                post.get({ plain: true })
-            );
+            const posts = postData.map(post => post.get({ plain: true }));
+            console.log(posts);
+            res.render("homepage", { posts: posts, loggedIn: req.session.loggedIn, username: req.session.username });
 
 
-            res.render("homepage", { posts, loggedIn: req.session.loggedIn, username: req.session.username });
         })
         .catch((err) => {
             console.log(
@@ -26,12 +36,59 @@ router.get("/homepage", (req, res) => {
                 "There was a problem with getting all posts.. Try again!"
             );
         });
+
 });
 
 // main start handlebar route
 router.get("/", (req, res) => {
-    res.render("giphy", { loggedIn: req.session.loggedIn });
+    res.render("homepage", { loggedIn: req.session.loggedIn });
 });
+
+// route for Posts detail Page
+router.get("/post/:id", (req, res) => {
+    Post.findOne({
+            where: {
+                id: req.params.id
+            },
+            attributes: [
+                'id',
+                'content',
+                'title',
+                'date_created'
+            ],
+            include: [{
+                    model: Comment,
+                    attributes: ['id', 'comment_text', 'post_id', 'user_id', 'date_created'],
+                    include: {
+                        model: User,
+                        attributes: ['username']
+                    }
+                },
+                {
+                    model: User,
+                    attributes: ['username']
+                }
+            ]
+        })
+        .then(dbPostData => {
+            if (!dbPostData) {
+                res.status(404).json({ message: 'No post found with this id' });
+                return;
+            }
+
+            // serialize the data
+            const post = dbPostData.get({ plain: true });
+
+            // pass data to template
+            res.render('post-detail', { post: post, loggedIn: req.session.loggedIn });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+
+});
+
 
 // register handlebar route
 router.get("/register", (req, res) => {
