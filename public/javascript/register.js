@@ -4,27 +4,20 @@ async function signupFormHandler(event) {
     const username = document.querySelector('#username-signup').value.trim();
     const email = document.querySelector('#email-signup').value.trim();
     const password = document.querySelector('#password-signup').value.trim();
-    const workoutType = document.querySelector('#workouttype-signup').value.trim();
-    const age = document.querySelector('#age-signup').value.trim();
-    const weight = document.querySelector('#weight-signup').value.trim();
-    const height = document.querySelector('#height-signup').value.trim();
 
-    if (username && email && password && workoutType && weight && height) {
+    if (username && email && password) {
         const response = await fetch('/api/users', {
             method: 'post',
             body: JSON.stringify({
                 username,
                 email,
-                password,
-                workoutType,
-                age,
-                weight,
-                height
+                password
+
             }),
             headers: { 'Content-Type': 'application/json' }
         });
         if (response.ok) {
-            document.location.replace('/homepage');
+            document.location.replace('/');
         } else {
             alert(response.statusText);
         }
