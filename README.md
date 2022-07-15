@@ -11,3 +11,10 @@ You will be presented with the homepage, which contains existing blog posts; nav
 https://github.com/AbdulQadir51/TechBlogger
 ## Deployed Application Link
 https://techibloggers.herokuapp.com/
+
+
+## Application Screenshots
+![screenshot 1](public/images/screenshot1.png) 
+![screenshot 2](public/images/screenshot2.png) 
+![screenshot 3](public/images/screenshot3.png) 
+![screenshot 4](public/images/screenshot4.png) 
