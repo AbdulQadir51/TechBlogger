@@ -50,7 +50,7 @@ app.use((req, res) => {
 });
 
 // force true means, if there area any changes, update and re-run database changes.
-connection.sync({ force: false }).then(() => {
+connection.sync({ force: true }).then(() => {
     app.listen(PORT, () => {
         console.log(`Backend Server Live on ${PORT}`);
     });
